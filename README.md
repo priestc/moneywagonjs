@@ -35,6 +35,8 @@ moneywagon.getCurrentPrice('ltc', 'rur', function(price, source) {
 
     One Litecoin is worth 169.54116322 Russian Rubles, according to cryptonator
 
+Most common cryptocurrencies and most fiat currencies are supported.
+
 ### Custom service fallback order:
 
 ```js
@@ -43,10 +45,14 @@ var service = new moneywagon.CurrentPrice([
     moneywagon.Bitstamp
 ]);
 
-console.log(service.get('btc', 'usd'));
+service.getCurrentPrice('btc', 'usd', function() {
+    console.log("One bitcoin is worth", price, "US Dollars according to", source);
+);
 ```
 
-    [377.2, 'btce']
+    One bitcoin is worth 377.2 US Dollars according to btce
+
+The first service is tried first, if the first service returns an error, the second service is tried.
 
 ```js
 var service = new moneywagon.CurrentPrice([
@@ -54,7 +60,9 @@ var service = new moneywagon.CurrentPrice([
     moneywagon.BTCE, // switched order from last example
 ]);
 
-console.log(service.get('btc', 'usd'));
+service.getCurrentPrice('btc', 'usd', function() {
+    console.log("One bitcoin is worth", price, "US Dollars according to", source);
+);
 ```
 
-    [377.22, 'bitstamp']
+    One bitcoin is worth 378.0 US Dollars according to bitstamp
